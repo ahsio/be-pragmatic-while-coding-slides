@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type"
+              content="text/html;charset=utf-8" />
+        <title>From STUPID to SOLID code!</title>
+        <link rel="stylesheet" href="reveal.js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
+        <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+        <link rel="stylesheet" href="css/custom.css">
+        <script>
+            document.write('<link rel="stylesheet" href="reveal.js/css/print/' +
+                (window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper') +
+                '.css" type="text/css" media="print">'
+            );
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1 class="title">Écrire  du <strong>CODE</strong> de <strong>QUALITÉ</strong></h1>
+                    <em>Ahmed SIOUANI</em>
+                </section>
+                <!-- Orthogonalité -->
+                <section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            # L'Orthogonalité
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            # En géométrie
+
+                            * Dans l’espace, on dit que deux droites sont orthogonales si elles sont parallèles à des droites se coupant en angle droit.
+
+                            ![](images/axexy.png)
+
+                            * Quelque soit P appartenant à X, la projection de P sur Y ne change pas.
+
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            <h1>Notion d'<strong>Indépendence</strong></h1>
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            # En Informatique
+
+                            * Orthogonalité = Indépendence, découplage
+                            <br><br>
+                            * Deux élements A et B sont considérés orthogonaux si toute modification apportée à A n’a aucun impact sur B.
+                            <br><br>
+                            * <strong>Exemple</strong>:<br>
+                                Base de données / Interface utilisateur
+
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ### Quelle classe fait partie d'un ensemble parfaitement orthogonal ?
+
+                            <pre>
+                            class Explode1 {
+                                public explode1(InputStreamReader input)
+                                public void readNextLine() throws IOException
+                                public int numFields()
+                                public String getField(int fieldNo)
+                            }
+                            </pre>
+                            <br>
+                            <pre>
+                            class Explode2 {
+                                public explode2(String line)
+                                public int numFields()
+                                public String getField(int fieldNo)
+                            }
+                            </pre>
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## Avantages
+
+                            * Corrections locales.
+                            * Facilement testable.
+                            * Réutilisabilité.
+
+                        </script>
+                    </section>
+                </section>
+
+                <!-- La loi de Déméter -->
+                <section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            # La Loi de Déméter
+                            ## (Law of Demeter, LoD) - 1987
+
+                            ### Principe de connaissance minimale
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ###La Loi de Déméter
+                            * Règle de conception
+                            <br><br>
+                            ### Principes
+                            * Ne parlez qu’à vos amis immédiats. Ne parlez pas aux étrangers.
+                            * Un objet doit avoir une connaissance limitée des objets encapsulés dans les objets auxquels il est lié directement.
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ###La Loi de Déméter appliquée aux fonctions
+
+                            Une méthode donnée d'un objet quelconque ne doit appeller que des méthodes qui appartiennent à
+
+                            * L'objet lui même
+                            * Ses paramètres
+                            * Les objets qu'elle crée/instancie
+                            * Ses composants
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ###La Loi de Déméter appliquée aux fonctions
+                            ![](images/demeter.jpeg)
+
+                            <pre>
+                                $this
+                                    ->getFirstObject()
+                                        ->doSomething(...);
+                            </pre>
+                        </script>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                            ###La Loi de Déméter appliquée aux fonctions,
+
+                            <br>
+							Violation de la loi de Démeter,
+                            <pre>
+                                $this
+                                    ->getFirstObject()
+                                        ->getSecondObject()
+                                            ->doSomething();
+                            </pre>
+							<br>
+							Encapsulation des appels,
+                             <pre>
+                                $this
+                                    ->getFirstObject()
+                                        ->doSomethingWithSecondObject()
+                            </pre>
+                        </script>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                            ###Avantages
+
+                            * Adaptabilité et maintenabilité du code
+
+                            <br><br>
+                            ###Inconvéniants
+
+                            * Nécessité d'encapsuler systèmatiquement les appels.
+                        </script>
+                    </section>
+                </section>
+
+                <!-- L'injection de dépendence-->
+                <section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            # L'injection de dépendence
+                        </script>
+                    </section>
+
+                    <section data-markdown class="highlighted-list">
+                        <script type="text/template">
+                            ## Ce qu'il faut savoir?
+
+                            * Ne pas confondre **Injection de Dépendence**, **Inversion de contrôle** (IoC) et **Service Locator** (SL)
+							
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## Quelques définitions
+
+                            * <strong>Inversion de contrôle, </strong>
+                                - Relations entre vos classes de bases et vos classes métier.
+                                - Une classe de base ne doit pas dépendre d'une classe métier, plutôt le contraire.
+                                - Une classe de base doit implémenter une abstraction (un interface).
+                            * <Strong>Injection de dépendence, </Strong>
+                                - Une dépendence, Un objet utilisé par une classe donnée
+                                - Une injection, le fait de passer un objet comme argument à une fonction
+                            * <Strong>Service Locator, </Strong>
+                                - Référence vos services.
+                                - <strong>Symfony, </strong>L'injection du DIC.
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## Injection de dépendences
+
+                            <strong>Injection via le setter, </strong>
+                            <pre>
+                                public function setMailer(Mailer $mailer)
+                                {
+                                    $this->mailer = $mailer;
+                                }
+                            </pre>
+
+                            <strong>Utilisation via le getter,</strong>
+                            <pre>
+                                public function getMailer()
+                                {
+                                    return $this->mailer;
+                                }
+                            </pre>
+                         </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## Faux !
+                            * <strong>Runtime Error,</strong> dans le cas ou votre setter n'est pas appelé.
+                            * Le bon getter qui va avec,
+                                <pre>
+                                private function getMailer()
+                                {
+                                    if (!($this->mailer instanceof Mailer)) {
+                                        throw new \LogicException('The Mailer dependency is missing.');
+                                    }
+
+                                    return $this->mailer;
+                                }
+                            </pre>
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            * L'injection via le setter</strong>
+                                - Ne doit être utiliser que dans le cas ou on n'a pas accès à la construction de l'objet.
+                                - Pour les classes qui étendent des librairies externes.
+                            * <strong>Exemple :</strong>
+                                - Un Repository Doctrine n'est accessible que via son <strong>EntityManager</strong>. Vous n'avez pas le contrôle sur sa construction. On utilise les setters dans ce cas.
+                        </script>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                            #Exemple
+                            <div style="height:20px;width:20px;background-color:red;float:right;"></div>
+                            <pre>
+                                first_service_id:
+                                    class: %first_service.class%
+                                    calls:
+                                        - [ setAnyOtherService, [@any_other_service_id]]
+                            </pre>
+                            <div style="height:20px;width:20px;background-color:green;float:right;"></div>
+                            <pre>
+                                second_service_id:
+                                    class: %second_service.class%
+                                    arguments: [@any_other_service_id]
+                            </pre>
+                        </script>
+                    </section>
+                </section>
+                <!-- Les Exceptions-->
+                <section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            # Les Exceptions
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ![](images/exception.jpg)
+
+                        </script>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                            L'exception ne doit gérer que ce qui est <strong>exceptionnel</strong>
+
+                        </script>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                           * Ouverture d'une fichier
+
+                           <pre>
+                               public void open_file() throws FileNotFoundException {
+                                    $stream = new FileInputStream("/etc/passwd");
+                               }
+                           </pre>
+
+                           <pre>
+                               public void open_file() throws FileNotFoundException {
+                                    $stream = new FileInputStream("/home/userX/test_results.xml");
+                               }
+                           </pre>
+
+                        </script>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                            * Error handlers
+
+                            <pre>
+                               public void open_file() {
+                                    File f = new File("/home/userX/test_results.xml");
+                                    if (!f.exists()) {
+                                        return false;
+                                    }
+
+                                    $stream = new FileInputStream(f);
+                                    return true;
+                               }
+                            </pre>
+
+                            * Ouvrir un fichier inexistant => Erreur conventionnelle
+                        </script>
+                    </section>
+
+                    </section>
+
+                <section>
+                    <section data-markdown>
+                        <script type="text/template">
+							![](images/stupid.png)
+							## **STUPID** Code
+                        </script>
+                    </section>
+                    <section data-markdown class="highlighted-list">
+                        <script type="text/template">
+                            ## **STUPID** Code?
+
+                            * **S**ingleton / Instances uniques
+                            * **T**ight Coupling / Couplage fort
+                            * **U**ntestability / Non testabilité
+                            * **P**remature Optimization / Optimisations prématurées
+                            * **I**ndescriptive Naming / Nommage indéchiffrable
+                            * **D**uplication / Duplications
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## **S**ingleton / Instances uniques
+
+                            * Peu configurable et pas extensible
+                            * Introduction de couplages forts
+                            * Difficilement testable
+
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## **T**ight Coupling, Couplage fort
+
+                            Généralisation des problèmes introduits par le **Singleton**.
+
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## **U**ntestability / Non testabilité
+
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## **P**remature Optimization / Optimisations prématurées
+
+                            _Premature optimization is the root of all evil._ &mdash; Donald Knuth.
+
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## **I**ndescriptive Naming / Nommage indéchiffrable
+
+                            * Le nommage doit avoir un sens.
+                            * N'utiliser pas les abréviations.
+
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## **D**uplication / Duplication
+
+                            **D**on't **R**epeat **Y**ourself!
+
+                            **K**eep **I**t **S**imple, **S**tupid!
+                        </script>
+                    </section>
+                </section>
+
+                <section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ![](images/solid.jpg)
+
+                            ## **SOLID** à la rescousse!
+                        </script>
+                    </section>
+
+                    <section data-markdown class="highlighted-list">
+                        <script type="text/template">
+                            ## **S**OLID
+
+                            * **S**ingle Responsability Principle / Principe de responsabilité unique
+                            * **O**pen Close Principle / Principe ouvert - fermé
+                            * **L**iskov Substitution Principle / Principe de substitution de Liskov
+                            * **I**nterface Segregation Principle / Principe de ségrégation d'interfaces
+                            * **D**ependency Injection Principle / Principe d'injection de dépendance
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## **S**ingle Responsibility Principle (SRP) / Principe de responsabilité unique
+
+                            There should **never** be **more than one reason**
+                            <br>for a class to change.
+                        </script>
+                    </section>
+                    <section>
+                        <img src="images/srp.jpg" />
+                        <p>Ce n'est parce que vous pouvez le faire, que vous avez le droit de le faire !</p>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## **O**pen/Closed Principle (OCP) / <br> Principe ouvert - fermé
+
+                            * Rendre les modules ouverts à l'extension et fermés aux modifications
+                        </script>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## **L**iskov Substitution Principle (LSP) / Principe de substitution de Liskov
+
+                            Un objet doit pouvoir être remplacer par une instance de ses sous-types sans que cela n'altère
+                            l'exécution du programme.
+                            <br><br>
+
+                            * <strong>Attention</strong> aux valeurs retournées dans les langages faiblement typé.
+                        </script>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## **I**nterface Segregation Principle (ISP) / Principe de ségrégation d'interfaces
+
+                            Le principe de responsabilité unique appliqué aux interfaces.
+
+                        </script>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## **D**ependency Injection Principle (DIP) / Principe d'injection de dépendance
+                        </script>
+                    </section>
+                </section>
+
+                <section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            # Tests unitaires
+
+                        </script>
+                    </section>
+
+                    <section data-markdown>
+                        <script type="text/template">
+                             ##Tester les états de votre logique
+
+                             Exemple :
+                             <pre>
+                             int function_1(int a, int b) {
+                                return a / (a + b)
+                             }
+                             </pre>
+                             <br>
+                             <pre>
+                             testFunction_1() {
+                                assertEqual(0.5, function_1(1,1));
+                             }
+                             </pre>
+                            Code coverage 100% / State coverage: 50%
+                        </script>
+                    </section>
+                </section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Merci, des questions?
+
+                        <br>
+                        <ul class="me">
+                            <li><a href="http://ahsio.com" title="website">ahsio.com</a></li>
+                        </ul>
+                    </script>
+                </section>
+
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Remerciements
+
+                        * <a href="http://en.wikipedia.org/wiki/Andy_Hunt_(author)">Andrew Hunt</a>
+                        * <a href="http://en.wikipedia.org/wiki/Dave_Thomas_(programmer)">David Thomas</a>
+                        * <a href="http://lostechies.com/derickbailey/">Derick Bailey</a>
+                        * <a href="http://williamdurand.fr/">William Durand</a>
+                        * <a href="https://twitter.com/hhamon">Hugo Hamon</a>
+                    </script>
+                </section>
+            </div>
+        </div>
+        <script type="text/javascript" src="reveal.js/lib/js/head.min.js"></script>
+        <script type="text/javascript" src="reveal.js/js/reveal.min.js"></script>
+        <script type="text/javascript">
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme,
+                transition: Reveal.getQueryHash().transition || 'concave',
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                ]
+            });
+        </script>
+    </body>
+</html>
