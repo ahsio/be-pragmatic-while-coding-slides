@@ -1,11 +1,11 @@
-Get the slides,
+Get the slides:
 
     $ git clone git://github.com/ahsio/be-pragmatic-while-coding-slides.git --recursive
 	
-Open the french version ,
+Open the french version:
 
     $ open index.fr.html
 
-Important: The english version isn't available yet,
+Open the english version:
 
     $ open index.en.html

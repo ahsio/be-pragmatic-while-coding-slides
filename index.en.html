@@ -19,49 +19,50 @@
         <div class="reveal">
             <div class="slides">
                 <section>
-                    <h1 class="title">Écrire  du <strong>CODE</strong> de <strong>QUALITÉ</strong></h1>
+                    <h1 class="title">Be <strong>pragmatic</strong> while <strong>coding</strong></h1>
                     <em>Ahmed SIOUANI</em>
                 </section>
-                <!-- Orthogonalité -->
+                <!-- Orthogonality -->
                 <section>
                     <section data-markdown>
                         <script type="text/template">
-                            # L'Orthogonalité
+                            # Orthogonality
                         </script>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            # En géométrie
+                            # In mathematics
 
-                            * Dans l’espace, on dit que deux droites sont orthogonales si elles sont parallèles à des droites se coupant en angle droit.
+                            * It is a relation of two lines at right angles to one another (perpendicularity) - Wikipedia
 
                             ![](images/axexy.png)
 
-                            * Quelque soit P appartenant à X, la projection de P sur Y ne change pas.
-
+                            * An unchanged projection of any motion through one axe(X) to the other axe(Y).
                         </script>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            <h1>Notion d'<strong>Indépendence</strong></h1>
+                            <h1>Notion of <strong>independence</strong></h1>
                         </script>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            # En Informatique
+                            # In programming
 
-                            * Orthogonalité = Indépendence, découplage
+                            * Orthogonality = Independence, decoupling
                             <br><br>
-                            * Deux élements A et B sont considérés orthogonaux si toute modification apportée à A n’a aucun impact sur B.
+                            
+                            * Things that are not related conceptually should not be related in the system.
+
                             <br><br>
-                            * <strong>Exemple</strong>:<br>
-                                Base de données / Interface utilisateur
+                            <strong>Exemple</strong>:<br>
+                            Database / User Interface
 
                         </script>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ### Quelle classe fait partie d'un ensemble parfaitement orthogonal ?
+                            ### Which class belongs to a perfectly orthogonal system?
 
                             <pre>
                             class Explode1 {
@@ -83,51 +84,52 @@
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ## Avantages
+                            ## Advantages
 
-                            * Corrections locales.
-                            * Facilement testable.
-                            * Réutilisabilité.
+                            * Local fixes.
+                            * Testability.
+                            * Reusability.
 
                         </script>
                     </section>
                 </section>
 
-                <!-- La loi de Déméter -->
+                <!-- Law of Demeter -->
                 <section>
                     <section data-markdown>
                         <script type="text/template">
-                            # La Loi de Déméter
-                            ## (Law of Demeter, LoD) - 1987
+                            # The Law of Demeter, LoD - 1987
 
-                            ### Principe de connaissance minimale
+                            ### Principle of least knowledge
                         </script>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ###La Loi de Déméter
-                            * Règle de conception
+                            ###The Law of Demeter
+                            * A design guideline.
                             <br><br>
-                            ### Principes
-                            * Ne parlez qu’à vos amis immédiats. Ne parlez pas aux étrangers.
-                            * Un objet doit avoir une connaissance limitée des objets encapsulés dans les objets auxquels il est lié directement.
+                            ### Principles
+                            * Each element should only talk to its friends, don't talk to strangers.
+                            * Each element should have only limited knowledge about other elements: only elements "closely" related to the current element. 
                         </script>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ###La Loi de Déméter appliquée aux fonctions
+                            ###Law of Demeter for Functions/Methods - (LoD-F)
 
-                            Une méthode donnée d'un objet quelconque ne doit appeller que des méthodes qui appartiennent à
+                            Any method of a given object may only invokes the:
 
-                            * L'objet lui même
-                            * Ses paramètres
-                            * Les objets qu'elle crée/instancie
-                            * Ses composants
+                            * Object itself
+                            * Method's parameters
+                            * Any objects created/instantiated within the method
+                            * The object's direct component objects
+                            * A global variable, accessible by the object, in the scope of the method.
+
                         </script>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ###La Loi de Déméter appliquée aux fonctions
+                            ###The Law of Demeter for Functions/Methods - (LoD-F)
                             ![](images/demeter.jpeg)
 
                             <pre>
@@ -140,10 +142,10 @@
 
                     <section data-markdown>
                         <script type="text/template">
-                            ###La Loi de Déméter appliquée aux fonctions,
+                            ###The Law of Demeter for Functions/Methods - (LoD-F)
 
                             <br>
-							Violation de la loi de Démeter,
+							Violation of the Demeter Law,
                             <pre>
                                 $this
                                     ->getFirstObject()
@@ -151,7 +153,7 @@
                                             ->doSomething();
                             </pre>
 							<br>
-							Encapsulation des appels,
+							Encapsulation
                              <pre>
                                 $this
                                     ->getFirstObject()
@@ -162,55 +164,55 @@
 
                     <section data-markdown>
                         <script type="text/template">
-                            ###Avantages
+                            ###Advantages
 
-                            * Adaptabilité et maintenabilité du code
+                            * Adaptability and maintenability of your code.
 
                             <br><br>
-                            ###Inconvéniants
+                            ###Drawbacks
 
-                            * Nécessité d'encapsuler systèmatiquement les appels.
+                            * A systematic need of wrapping your calls.
                         </script>
                     </section>
                 </section>
 
-                <!-- L'injection de dépendence-->
+                <!-- Dependency Injection -->
                 <section>
                     <section data-markdown>
                         <script type="text/template">
-                            # L'injection de dépendence
+                            # Dependency Injection
                         </script>
                     </section>
 
                     <section data-markdown class="highlighted-list">
                         <script type="text/template">
-                            ## Ce qu'il faut savoir?
+                            ## Good to know!
 
-                            * Ne pas confondre **Injection de Dépendence**, **Inversion de contrôle** (IoC) et **Service Locator** (SL)
+                            * Do not confuse **"Dependecy Injection"**, **Inversion of Control** (IoC) and **Service Locator** (SL)
 							
                         </script>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ## Quelques définitions
+                            ## Some definitions,
 
-                            * <strong>Inversion de contrôle, </strong>
-                                - Relations entre vos classes de bases et vos classes métier.
-                                - Une classe de base ne doit pas dépendre d'une classe métier, plutôt le contraire.
-                                - Une classe de base doit implémenter une abstraction (un interface).
-                            * <Strong>Injection de dépendence, </Strong>
-                                - Une dépendence, Un objet utilisé par une classe donnée
-                                - Une injection, le fait de passer un objet comme argument à une fonction
+                            * <strong>Inversion of control, </strong>
+                                - The relationship between higher lever class and detail classes
+                                - Higher level classes shouldn't depend on detail classes, but rather the contrary
+                                - Higher level classes should depend on abstraction (like interfaces)
+                            * <Strong>Dependency Injection, </Strong>
+                                - A dependency is an object used by your class
+                                - An injection is the fact of passing an argyment to a function
                             * <Strong>Service Locator, </Strong>
-                                - Référence vos services.
-                                - <strong>Symfony, </strong>L'injection du DIC.
+                                - A container of service injected as a dependency.
+                                - <strong>In Symfony, </strong>injection of the DIC.
                         </script>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ## Injection de dépendences
+                            ## Dependency Injection
 
-                            <strong>Injection via le setter, </strong>
+                            <strong>Injection via the setter, </strong>
                             <pre>
                                 public function setMailer(Mailer $mailer)
                                 {
@@ -218,7 +220,7 @@
                                 }
                             </pre>
 
-                            <strong>Utilisation via le getter,</strong>
+                            <strong>Access via the getter,,</strong>
                             <pre>
                                 public function getMailer()
                                 {
@@ -229,9 +231,9 @@
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ## Faux !
-                            * <strong>Runtime Error,</strong> dans le cas ou votre setter n'est pas appelé.
-                            * Le bon getter qui va avec,
+                            ## Wrong !
+                            * <strong>Runtime Error,</strong> in case your setter isn't called before.
+                            * The appropriate getter,
                                 <pre>
                                 private function getMailer()
                                 {
@@ -246,17 +248,17 @@
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            * L'injection via le setter</strong>
-                                - Ne doit être utiliser que dans le cas ou on n'a pas accès à la construction de l'objet.
-                                - Pour les classes qui étendent des librairies externes.
-                            * <strong>Exemple :</strong>
-                                - Un Repository Doctrine n'est accessible que via son <strong>EntityManager</strong>. Vous n'avez pas le contrôle sur sa construction. On utilise les setters dans ce cas.
+                            * Setter Injection</strong>
+                                - Should be used only when you're not allowed to access the object construction.
+                                - For classes that extends third-party libraries.
+                            * <strong>Example:</strong>
+                                - A doctrine repository is accessible only via the <strong>EntityManager</strong>. You don't have control over its construction. For this specific case, injection is performed via setters.
                         </script>
                     </section>
 
                     <section data-markdown>
                         <script type="text/template">
-                            #Exemple
+                            #Example
                             <div style="height:20px;width:20px;background-color:red;float:right;"></div>
                             <pre>
                                 first_service_id:
@@ -273,11 +275,11 @@
                         </script>
                     </section>
                 </section>
-                <!-- Les Exceptions-->
+                <!-- Exceptions -->
                 <section>
                     <section data-markdown>
                         <script type="text/template">
-                            # Les Exceptions
+                            # Exceptions
                         </script>
                     </section>
                     <section data-markdown>
@@ -289,14 +291,13 @@
 
                     <section data-markdown>
                         <script type="text/template">
-                            L'exception ne doit gérer que ce qui est <strong>exceptionnel</strong>
-
+                            Only use exceptions for <strong>Exceptional</strong> problems
                         </script>
                     </section>
 
                     <section data-markdown>
                         <script type="text/template">
-                           * Ouverture d'une fichier
+                           * File opening,
 
                            <pre>
                                public void open_file() throws FileNotFoundException {
@@ -329,7 +330,7 @@
                                }
                             </pre>
 
-                            * Ouvrir un fichier inexistant => Erreur conventionnelle
+                            * open an inexistant file => conventional error
                         </script>
                     </section>
 
@@ -346,41 +347,41 @@
                         <script type="text/template">
                             ## **STUPID** Code?
 
-                            * **S**ingleton / Instances uniques
-                            * **T**ight Coupling / Couplage fort
-                            * **U**ntestability / Non testabilité
-                            * **P**remature Optimization / Optimisations prématurées
-                            * **I**ndescriptive Naming / Nommage indéchiffrable
-                            * **D**uplication / Duplications
+                            * **S**ingleton
+                            * **T**ight Coupling
+                            * **U**ntestability
+                            * **P**remature Optimization
+                            * **I**ndescriptive Naming
+                            * **D**uplication
                         </script>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ## **S**ingleton / Instances uniques
+                            ## **S**ingleton
 
-                            * Peu configurable et pas extensible
-                            * Introduction de couplages forts
-                            * Difficilement testable
-
-                        </script>
-                    </section>
-                    <section data-markdown>
-                        <script type="text/template">
-                            ## **T**ight Coupling, Couplage fort
-
-                            Généralisation des problèmes introduits par le **Singleton**.
+                            * Not extensible (configuration limits)
+                            * Introduce strong couplings
+                            * Untestability
 
                         </script>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ## **U**ntestability / Non testabilité
+                            ## **T**ight Coupling
+
+                            Generalisation of the limits introduced by the "Signleton" Anti-pattern.
 
                         </script>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ## **P**remature Optimization / Optimisations prématurées
+                            ## **U**ntestability
+
+                        </script>
+                    </section>
+                    <section data-markdown>
+                        <script type="text/template">
+                            ## **P**remature Optimization
 
                             _Premature optimization is the root of all evil._ &mdash; Donald Knuth.
 
@@ -388,16 +389,16 @@
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ## **I**ndescriptive Naming / Nommage indéchiffrable
+                            ## **I**ndescriptive Naming
 
-                            * Le nommage doit avoir un sens.
-                            * N'utiliser pas les abréviations.
+                            * Meaningless naming.
+                            * Do not use abbreviations.
 
                         </script>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ## **D**uplication / Duplication
+                            ## **D**uplication
 
                             **D**on't **R**epeat **Y**ourself!
 
@@ -411,7 +412,7 @@
                         <script type="text/template">
                             ![](images/solid.jpg)
 
-                            ## **SOLID** à la rescousse!
+                            ## **SOLID** to the rescue!
                         </script>
                     </section>
 
@@ -419,16 +420,16 @@
                         <script type="text/template">
                             ## **S**OLID
 
-                            * **S**ingle Responsability Principle / Principe de responsabilité unique
-                            * **O**pen Close Principle / Principe ouvert - fermé
-                            * **L**iskov Substitution Principle / Principe de substitution de Liskov
-                            * **I**nterface Segregation Principle / Principe de ségrégation d'interfaces
-                            * **D**ependency Injection Principle / Principe d'injection de dépendance
+                            * **S**ingle Responsability Principle
+                            * **O**pen Close Principle
+                            * **L**iskov Substitution Principle
+                            * **I**nterface Segregation Principle
+                            * **D**ependency Injection Principle
                         </script>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ## **S**ingle Responsibility Principle (SRP) / Principe de responsabilité unique
+                            ## **S**ingle Responsibility Principle (SRP)
 
                             There should **never** be **more than one reason**
                             <br>for a class to change.
@@ -436,40 +437,39 @@
                     </section>
                     <section>
                         <img src="images/srp.jpg" />
-                        <p>Ce n'est parce que vous pouvez le faire, que vous avez le droit de le faire !</p>
+                        <p>Just because you can, doesn't mean you should!</p>
                     </section>
                     <section data-markdown>
                         <script type="text/template">
-                            ## **O**pen/Closed Principle (OCP) / <br> Principe ouvert - fermé
+                            ## **O**pen/Closed Principle (OCP)
 
-                            * Rendre les modules ouverts à l'extension et fermés aux modifications
+                            * you should be able to extend a classes brehavior, without modifying it - Robert C.Martin 
                         </script>
                     </section>
 
                     <section data-markdown>
                         <script type="text/template">
-                            ## **L**iskov Substitution Principle (LSP) / Principe de substitution de Liskov
+                            ## **L**iskov Substitution Principle (LSP)
 
-                            Un objet doit pouvoir être remplacer par une instance de ses sous-types sans que cela n'altère
-                            l'exécution du programme.
+                            Derived classes must be substituable for their base classes - Robert C.Martin
                             <br><br>
 
-                            * <strong>Attention</strong> aux valeurs retournées dans les langages faiblement typé.
+                            * <strong>Be careful</strong>, when setting returned values in weakly-typed languages.
                         </script>
                     </section>
 
                     <section data-markdown>
                         <script type="text/template">
-                            ## **I**nterface Segregation Principle (ISP) / Principe de ségrégation d'interfaces
+                            ## **I**nterface Segregation Principle (ISP)
 
-                            Le principe de responsabilité unique appliqué aux interfaces.
+                            Make fine grained interfaces that are client specific - Robert C.Martin
 
                         </script>
                     </section>
 
                     <section data-markdown>
                         <script type="text/template">
-                            ## **D**ependency Injection Principle (DIP) / Principe d'injection de dépendance
+                            ## **D**ependency Injection Principle (DIP)
                         </script>
                     </section>
                 </section>
@@ -477,14 +477,14 @@
                 <section>
                     <section data-markdown>
                         <script type="text/template">
-                            # Tests unitaires
+                            # Unit tests
 
                         </script>
                     </section>
 
                     <section data-markdown>
                         <script type="text/template">
-                             ##Tester les états de votre logique
+                             ##Test the states of your logic
 
                              Exemple :
                              <pre>
@@ -504,7 +504,7 @@
                 </section>
                 <section data-markdown>
                     <script type="text/template">
-                        ## Merci, des questions?
+                        ## Thank you, Questions?
 
                         <br>
                         <ul class="me">
@@ -515,7 +515,7 @@
 
                 <section data-markdown>
                     <script type="text/template">
-                        ## Remerciements
+                        ## Credits
 
                         * <a href="http://en.wikipedia.org/wiki/Andy_Hunt_(author)">Andrew Hunt</a>
                         * <a href="http://en.wikipedia.org/wiki/Dave_Thomas_(programmer)">David Thomas</a>
